@@ -20,13 +20,23 @@ namespace TicketReservationSystem.Data.Repositories
             return await ticketReservationSystemContext.Hotels.ToListAsync();
         }
 
+        public async Task<Hotel> GetAsync(int id)
+        {
+            return await ticketReservationSystemContext.Hotels.FindAsync(id);
+        }
+
+        public async Task<HotelRoom> GetHotelRoomAsync(int id)
+        {
+            return await ticketReservationSystemContext.HotelRooms.FindAsync(id);
+        }
+
         public async Task<List<HotelRoom>> GetHotelRoomsAsync(int capacity, int hotelId)
         {
-            var rooms = ticketReservationSystemContext.HotelRooms;
+            var rooms = ticketReservationSystemContext.HotelRooms.AsQueryable();
             if (capacity > 0)
-                rooms.Where(room => room.Capacity == capacity);
+                rooms = rooms.Where(room => room.Capacity == capacity);
             if (hotelId > 0)
-                rooms.Where(room => room.HotelId == hotelId);
+                rooms = rooms.Where(room => room.HotelId == hotelId);
             return await rooms.ToListAsync();
         }
     }

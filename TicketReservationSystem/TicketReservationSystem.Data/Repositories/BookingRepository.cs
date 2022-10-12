@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using TicketReservationSystem.Data.DbContexts;
 using TicketReservationSystem.Data.DbEntities;
 
@@ -12,10 +14,15 @@ namespace TicketReservationSystem.Data.Repositories
             this.ticketReservationSystemContext = ticketReservationSystemContext;
         }
 
-        public async Task CreateBooking(Booking booking)
+        public async Task CreateBookingAsync(Booking booking)
         {
             ticketReservationSystemContext.Bookings.Add(booking);
             await ticketReservationSystemContext.SaveChangesAsync();
+        }
+
+        public async Task<List<Booking>> GetAllAsync()
+        {
+            return await ticketReservationSystemContext.Bookings.ToListAsync();
         }
     }
 }

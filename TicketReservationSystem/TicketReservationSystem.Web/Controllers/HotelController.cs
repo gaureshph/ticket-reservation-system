@@ -26,9 +26,27 @@ namespace TicketReservationSystem.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchResults(SearchViewModel searchViewModel)
+        public async Task<ActionResult> Search(SearchViewModel searchViewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var rooms = await hotelRepository.GetHotelRoomsAsync(searchViewModel.NoOfPax ,searchViewModel.HotelId);
+                var hotel = await hotelRepository.GetAsync(searchViewModel.HotelId);
+
+                var searchResultsViewModel = rooms.Select(room => new SearchResultViewModel
+                {
+                    HotelId = room.HotelId,
+                    HotelName = hotel.Name,
+                    HotelRoomId = room.Id,
+                    HotelRoomName = room.Name,
+                    NoOfPax = room.Capacity
+                });
+                return View("SearchResults", searchResultsViewModel);
+            }
+
+            var hotels = await hotelRepository.GetAllAsync();
+            searchViewModel.Hotels = hotels.Select(hotel => new SelectListItem { Value = hotel.Id.ToString(), Text = hotel.Name }).ToList();
+            return View(searchViewModel);
         }
     }
 }

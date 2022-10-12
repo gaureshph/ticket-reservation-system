@@ -1,0 +1,49 @@
+﻿@model IEnumerable<TicketReservationSystem.Web.Models.Hotel.SearchResultViewModel>
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h2>Search Results</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HotelName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoOfPax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HotelRoomName)
+        </th>
+        <th>Actions</th>
+    </tr>
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfPax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelRoomName)
+            </td>
+            <td>
+                @Html.ActionLink("Book", "Create", "Booking", new { id=item.HotelRoomId }, new { })
+            </td>
+        </tr>
+    }
+}
+else
+            {
+                <tr>
+                    <td colspan="4">No rooms were found</td>
+                </tr>
+            }
+
+</table>

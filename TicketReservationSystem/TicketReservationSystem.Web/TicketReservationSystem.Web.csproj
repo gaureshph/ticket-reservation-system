@@ -161,6 +161,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Booking\BookingViewModel.cs" />
     <Compile Include="Models\Booking\AddBookingViewModel.cs" />
     <Compile Include="Models\Hotel\SearchViewModel.cs" />
     <Compile Include="Models\Hotel\SearchResultViewModel.cs" />
@@ -203,6 +204,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Hotel\Search.cshtml" />
+    <Content Include="Views\Hotel\SearchResults.cshtml" />
+    <Content Include="Views\Booking\Create.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
